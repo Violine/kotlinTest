@@ -8,8 +8,10 @@ public class Cell {
     Cell(int position) {
         this.position = position;
     }
-    Cell (int position, Animal animal){
 
+    Cell(int position, Animal animal) {
+        this.animal = animal;
+        this.position = position;
     }
 
     public Animal getAnimal() {
@@ -19,7 +21,8 @@ public class Cell {
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
-    public int getPosition(){
+
+    public int getPosition() {
         return position;
     }
 }

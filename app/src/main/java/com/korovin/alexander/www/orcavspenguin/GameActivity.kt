@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.activity_game.*
 import org.jetbrains.anko.toast
 
 class GameActivity : AppCompatActivity() {
-    private val tableRow: Int = 4
-    private val tableColumn: Int = 4
+    private val tableRow: Int = 10
+    private val tableColumn: Int = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +59,6 @@ class GameActivity : AppCompatActivity() {
         val display: Display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-        return size.y
+        return size.x
     }
 }

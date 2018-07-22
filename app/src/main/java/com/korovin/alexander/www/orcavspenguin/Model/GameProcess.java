@@ -16,15 +16,14 @@ public class GameProcess {
 
     private void initCell() {
         int position = 0;
-        for (int i = 0; i < row; ++i) {
-            for (int j = 0; j < column; ++j) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
                 if (i == j) {
                     gameField[i][j] = new Cell(position, new Orca());
-                    position++;
                 } else {
                     gameField[i][j] = new Cell(position);
-                    position++;
                 }
+                position++;
             }
         }
         cellCounter = position;
