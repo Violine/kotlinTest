@@ -1,17 +1,13 @@
 package com.korovin.alexander.www.orcavspenguin.Model;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
 public class GameProcess {
-    private static int row;
-    private static int column;
+    public static int row;
+    public static int column;
     private static int cellCounter;
 
     private static Cell[][] gameField;
