@@ -7,6 +7,7 @@ import android.widget.*
 import com.korovin.alexander.www.orcavspenguin.Model.Cell
 import com.korovin.alexander.www.orcavspenguin.Model.GameProcess
 import com.korovin.alexander.www.orcavspenguin.Model.Orca
+import com.korovin.alexander.www.orcavspenguin.Model.Penguin
 import com.korovin.alexander.www.orcavspenguin.R
 import org.jetbrains.anko.padding
 
@@ -30,6 +31,8 @@ class GamePadAdapter(private val context: Context, row: Int, column: Int, privat
         }
         val cell: Cell = getItem(position) as Cell
         if (cell.animal is Orca) textView.setImageResource(R.mipmap.orca)
+        if (cell.animal is Penguin) textView.setImageResource(R.mipmap.tux)
+
 
         return textView
 

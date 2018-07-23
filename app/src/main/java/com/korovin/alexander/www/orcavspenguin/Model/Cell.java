@@ -4,13 +4,13 @@ public class Cell {
 
     private Animal animal;
     private int position;
+    private int rowCoordinats;
+    private int columnCoordinats;
+    private boolean isEmpty;
 
-    Cell(int position) {
-        this.position = position;
-    }
-
-    Cell(int position, Animal animal) {
-        this.animal = animal;
+    Cell(int position, int rowCoordinats, int columnCoordinats) {
+        this.rowCoordinats = rowCoordinats;
+        this.columnCoordinats = columnCoordinats;
         this.position = position;
     }
 
@@ -24,5 +24,22 @@ public class Cell {
 
     public int getPosition() {
         return position;
+    }
+
+    public int getRowCoordinats() {
+        return rowCoordinats;
+    }
+
+    public int getColumnCoordinats() {
+        return columnCoordinats;
+    }
+
+    public boolean isEmpty() {
+        return isEmpty;
+
+    }
+
+    public void setEmpty(boolean empty) {
+        isEmpty = empty;
     }
 }
