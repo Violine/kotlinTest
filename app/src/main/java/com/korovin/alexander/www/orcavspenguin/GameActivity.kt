@@ -41,6 +41,7 @@ class GameActivity : AppCompatActivity() {
         game_pad.adapter = GamePadAdapter(context, rows, columns, cellWidth)
         game_pad.onItemClickListener = AdapterView.OnItemClickListener { _, _, _, _ ->
             GameProcess.lifeCycle()
+            // тут нужно обновлять список
         }
     }
 

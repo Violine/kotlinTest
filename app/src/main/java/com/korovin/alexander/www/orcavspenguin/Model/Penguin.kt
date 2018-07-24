@@ -25,12 +25,13 @@ class Penguin(position: Int) : Animal(position), IAnimalLifeStep {
         if (this.lifeStep == Animal.PINGUIN_PROLIFERATION)
             proliferationAnimal(emptyCell) // передаем список возможных позиций для размножения
         else if (emptyCell.size > 0) {
+
             val random = Random(System.currentTimeMillis())
             val randomIndex = random.nextInt(emptyCell.size)
 
             val positionForMove = emptyCell[randomIndex] //
 
-            GameProcess.allCellList[positionForMove].animal = GameProcess.allCellList[this.position].animal // копируем животину в другую ячейку
+            GameProcess.allCellList[positionForMove].animal = GameProcess.allCellList[this.position].animal
             GameProcess.allCellList[positionForMove].setIsEmpty(false)
             GameProcess.allCellList[positionForMove].animal.animalCoordinate = Coordinate(GameProcess.allCellList[positionForMove].rowCoordinats, GameProcess.allCellList[positionForMove].columnCoordinats)
             GameProcess.allCellList[position].setIsEmpty(true)
