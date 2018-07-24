@@ -12,8 +12,10 @@ import com.korovin.alexander.www.orcavspenguin.R
 import org.jetbrains.anko.padding
 
 
-class GamePadAdapter(private val context: Context, row: Int, column: Int, private val cellSize: Int, val gameProcess: GameProcess = GameProcess(row, column)
-) : BaseAdapter() {
+class GamePadAdapter(private val context: Context, row: Int, column: Int, private val cellSize: Int,
+                     gameProcess: GameProcess = GameProcess(row, column)) : BaseAdapter() {
+
+    private var cellVIews = GameProcess.allCellList.clone() as ArrayList<*>
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val imageView: ImageView
@@ -27,16 +29,16 @@ class GamePadAdapter(private val context: Context, row: Int, column: Int, privat
             imageView = convertView as ImageView
         }
         val cell: Cell = getItem(position) as Cell
-        if (cell.animal is Orca) imageView.setImageResource(R.mipmap.orca)
-        if (cell.animal is Penguin) imageView.setImageResource(R.mipmap.tux)
-
-
+        when {
+            cell.animal is Orca -> imageView.setImageResource(R.mipmap.orca)
+            cell.animal is Penguin -> imageView.setImageResource(R.mipmap.tux)
+            else -> imageView.setImageResource(0)
+        }
         return imageView
-
     }
 
     override fun getItem(position: Int): Any {
-        return GameProcess.getCellToPosition(position)
+        return cellVIews[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -45,6 +47,12 @@ class GamePadAdapter(private val context: Context, row: Int, column: Int, privat
     }
 
     override fun getCount(): Int {
-        return GameProcess.getCellCounter()
+        return cellVIews.size
+    }
+
+    fun renewAdapterData() {
+        cellVIews.clear()
+        cellVIews = GameProcess.allCellList.clone() as ArrayList<*>
+        notifyDataSetChanged()
     }
 }

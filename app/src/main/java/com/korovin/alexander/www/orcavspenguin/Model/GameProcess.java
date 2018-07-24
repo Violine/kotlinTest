@@ -10,11 +10,7 @@ public class GameProcess {
     public static int column;
     private static int cellCounter;
 
-    // private static Cell[][] gameField;
-
     public static ArrayList<Cell> allCellList;
-    private static ArrayList<Orca> allOrcaList;
-    private static ArrayList<Penguin> allPengiunList;
 
     private int animalCellPercent = 55; // процент клеток, заполненными животными
 
@@ -22,7 +18,6 @@ public class GameProcess {
     public GameProcess(int row, int column) {
         GameProcess.row = row;
         GameProcess.column = column;
-        //GameProcess.gameField = new Cell[row][column];
         initCell();
         setAnimalToCell(cellCounter);
     }
@@ -33,7 +28,6 @@ public class GameProcess {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 Cell cell = new Cell(position, i, j);
-                //  gameField[i][j] = cell;
                 allCellList.add(cell);
                 position++;
             }
@@ -52,12 +46,6 @@ public class GameProcess {
     }
 
     public static Cell getCellToPosition(int position) {
-//        for (int i = 0; i < row; i++) {
-//            for (int j = 0; j < column; j++) {
-//                if (gameField[i][j].getPosition() == position) return gameField[i][j];
-//            }
-//        }
-//        return null;
         return allCellList.get(position);
     }
 
@@ -76,8 +64,8 @@ public class GameProcess {
             allCellList.get(emptyCellPosition).setAnimal(null);
             allCellList.get(emptyCellPosition).setIsEmpty(true);
         }
-        allOrcaList = new ArrayList<>();
-        allPengiunList = new ArrayList<>();
+        ArrayList<Orca> allOrcaList = new ArrayList<>();
+        ArrayList<Penguin> allPengiunList = new ArrayList<>();
         Integer[] animalArray = animalCell.toArray(new Integer[animalCell.size()]);
         shuffleArray(animalArray);                            // перемешиваем массив
         for (int i = 0; i < animalArray.length; i++) {
@@ -95,7 +83,7 @@ public class GameProcess {
         }
     }
 
-    static void shuffleArray(Integer[] ar) {
+    private static void shuffleArray(Integer[] ar) {
         Random rnd = new Random();
         for (int i = ar.length - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);
@@ -105,16 +93,16 @@ public class GameProcess {
         }
     }
 
-    public static void lifeCycle() {
-        for (Cell cell : allCellList) {
-            if (cell.getAnimal() == null) continue;
-            else {
-                Coordinate coordinate = new Coordinate(cell.getRowCoordinats(), cell.getColumnCoordinats());
-                cell.getAnimal().setAnimalCoordinate(coordinate);
-                cell.getAnimal().animalLifeStep();
-            }
-        }
-
-    }
+//    public static void lifeCycle() {
+//        for (Cell cell : allCellList) {
+//            if (cell.getAnimal() == null) continue;
+//            else {
+//                Coordinate coordinate = new Coordinate(cell.getRowCoordinats(), cell.getColumnCoordinats());
+//                cell.getAnimal().setAnimalCoordinate(coordinate);
+//                cell.getAnimal().animalLifeStep();
+//            }
+//        }
+//
+//    }
 }
 

@@ -1,6 +1,7 @@
 package com.korovin.alexander.www.orcavspenguin.Model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Animal implements IAnimalLifeStep {
     public static final int ORCA_MAX_LIFECYCLE = 3;
@@ -32,8 +33,15 @@ public abstract class Animal implements IAnimalLifeStep {
         this.position = position;
     }
 
-    public void proliferationAnimal(ArrayList<Integer> emptyCell) {
-// получаем позиции клеток, куда мы можем размножиться
+    public void proliferationAnimal(ArrayList<Integer> emptyCell, int positionForProliferation, Animal animal) {
+        GameProcess.allCellList.get(positionForProliferation).setAnimal(animal);
+        GameProcess.allCellList.get(positionForProliferation).setIsEmpty(false);
+    }
+
+    protected int getPositionForProliferation(ArrayList<Integer> emptyCell) {
+        Random random = new Random(System.currentTimeMillis());
+        int randomIndex = random.nextInt(emptyCell.size());
+        return emptyCell.get(randomIndex);
     }
 
     public ArrayList<Coordinate> getPositionToMove() { // определяем куда можно ходить
