@@ -6,7 +6,7 @@ public class Cell {
     private int position;
     private int rowCoordinats;
     private int columnCoordinats;
-    private boolean isEmpty;
+    public boolean isEmpty;
 
     Cell(int position, int rowCoordinats, int columnCoordinats) {
         this.rowCoordinats = rowCoordinats;

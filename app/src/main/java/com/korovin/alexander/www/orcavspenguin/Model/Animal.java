@@ -9,6 +9,34 @@ public abstract class Animal implements IAnimalLifeStep {
     public static final int ORCA_PROLIFERATION = 8;
     private int lifeStep;
     private int position;
+    private ArrayList<Integer> emptyCell;
+    private ArrayList<Integer> pinguinCell;
+
+    public ArrayList<Integer> getEmptyCell() {
+        return emptyCell;
+    }
+
+    public void setEmptyCell(ArrayList<Integer> emptyCell) {
+        this.emptyCell = emptyCell;
+    }
+
+    public ArrayList<Integer> getPinguinCell() {
+        return pinguinCell;
+    }
+
+    public void setPinguinCell(ArrayList<Integer> pinguinCell) {
+        this.pinguinCell = pinguinCell;
+    }
+
+    public ArrayList<Integer> getOrcaCell() {
+        return orcaCell;
+    }
+
+    public void setOrcaCell(ArrayList<Integer> orcaCell) {
+        this.orcaCell = orcaCell;
+    }
+
+    private ArrayList<Integer> orcaCell;
 
     private Coordinate animalCoordinate;
 
@@ -33,12 +61,12 @@ public abstract class Animal implements IAnimalLifeStep {
         this.position = position;
     }
 
-    public void proliferationAnimal(ArrayList<Integer> emptyCell, int positionForProliferation, Animal animal) {
+    public void proliferationAnimal(int positionForProliferation, Animal animal) {
         GameProcess.allCellList.get(positionForProliferation).setAnimal(animal);
         GameProcess.allCellList.get(positionForProliferation).setIsEmpty(false);
     }
 
-    protected int getPositionForProliferation(ArrayList<Integer> emptyCell) {
+    protected int getRandomPosition(ArrayList<Integer> emptyCell) {
         Random random = new Random(System.currentTimeMillis());
         int randomIndex = random.nextInt(emptyCell.size());
         return emptyCell.get(randomIndex);
@@ -64,6 +92,25 @@ public abstract class Animal implements IAnimalLifeStep {
 
     public Coordinate getAnimalCoordinate() {
         return this.animalCoordinate;
+    }
+
+    protected void calculateAnimalAround() {
+
+        ArrayList<Coordinate> coordinateToMove = getPositionToMove();
+        this.emptyCell = new ArrayList<>();
+        this.pinguinCell = new ArrayList<>();
+        this.orcaCell = new ArrayList<>();
+
+        for (Coordinate coordinate : coordinateToMove) {
+            int pos = coordinate.getRowCoordinate() * GameProcess.column + coordinate.getColumnCoordinate();
+            if (GameProcess.allCellList.get(pos).isEmpty()) {
+                emptyCell.add(pos);
+            } else if (GameProcess.allCellList.get(pos).getAnimal() instanceof Penguin) {
+                pinguinCell.add(pos);
+            } else {
+                orcaCell.add(pos);
+            }
+        }
     }
 
 }
