@@ -12,29 +12,26 @@ import com.korovin.alexander.www.orcavspenguin.R
 import org.jetbrains.anko.padding
 
 
-class GamePadAdapter(private val context: Context, row: Int, column: Int, private val cellSize: Int
+class GamePadAdapter(private val context: Context, row: Int, column: Int, private val cellSize: Int, val gameProcess: GameProcess = GameProcess(row, column)
 ) : BaseAdapter() {
 
-    val gameProcess: GameProcess = GameProcess(row, column)
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val textView: ImageView
+        val imageView: ImageView
         if (convertView == null) {
-            textView = ImageView(context, null, R.drawable.item_border)
-//          textView.setImageResource(R.mipmap.orca)
-            textView.adjustViewBounds = true
-            textView.layoutParams = AbsListView.LayoutParams(cellSize - 17, cellSize - 17)
-            textView.padding = 20
-            textView.scaleType = ImageView.ScaleType.FIT_CENTER
+            imageView = ImageView(context, null, R.drawable.item_border)
+            imageView.adjustViewBounds = true
+            imageView.layoutParams = AbsListView.LayoutParams(cellSize - 10, cellSize - 10)
+            imageView.padding = 20
+            imageView.scaleType = ImageView.ScaleType.FIT_CENTER
         } else {
-            textView = convertView as ImageView
+            imageView = convertView as ImageView
         }
         val cell: Cell = getItem(position) as Cell
-        if (cell.animal is Orca) textView.setImageResource(R.mipmap.orca)
-        if (cell.animal is Penguin) textView.setImageResource(R.mipmap.tux)
+        if (cell.animal is Orca) imageView.setImageResource(R.mipmap.orca)
+        if (cell.animal is Penguin) imageView.setImageResource(R.mipmap.tux)
 
 
-        return textView
+        return imageView
 
     }
 

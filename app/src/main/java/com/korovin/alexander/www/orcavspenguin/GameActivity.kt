@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.activity_game.*
 import org.jetbrains.anko.toast
 
 class GameActivity : AppCompatActivity() {
-    private val tableRow: Int = 15
-    private val tableColumn: Int = 10
+    private val tableRow: Int = 5
+    private val tableColumn: Int = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,9 @@ class GameActivity : AppCompatActivity() {
         game_pad.numColumns = columns
         game_pad.columnWidth = cellWidth
         game_pad.adapter = GamePadAdapter(context, rows, columns, cellWidth)
-        game_pad.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id -> GameProcess.lifeCycle() }
+        game_pad.onItemClickListener = AdapterView.OnItemClickListener { _, _, _, _ ->
+            GameProcess.lifeCycle()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -10,9 +10,9 @@ public class GameProcess {
     public static int column;
     private static int cellCounter;
 
-    private static Cell[][] gameField;
+    // private static Cell[][] gameField;
 
-    private static ArrayList<Cell> allCellList;
+    public static ArrayList<Cell> allCellList;
     private static ArrayList<Orca> allOrcaList;
     private static ArrayList<Penguin> allPengiunList;
 
@@ -22,7 +22,7 @@ public class GameProcess {
     public GameProcess(int row, int column) {
         GameProcess.row = row;
         GameProcess.column = column;
-        GameProcess.gameField = new Cell[row][column];
+        //GameProcess.gameField = new Cell[row][column];
         initCell();
         setAnimalToCell(cellCounter);
     }
@@ -33,7 +33,7 @@ public class GameProcess {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 Cell cell = new Cell(position, i, j);
-                gameField[i][j] = cell;
+                //  gameField[i][j] = cell;
                 allCellList.add(cell);
                 position++;
             }
@@ -52,12 +52,13 @@ public class GameProcess {
     }
 
     public static Cell getCellToPosition(int position) {
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                if (gameField[i][j].getPosition() == position) return gameField[i][j];
-            }
-        }
-        return null;
+//        for (int i = 0; i < row; i++) {
+//            for (int j = 0; j < column; j++) {
+//                if (gameField[i][j].getPosition() == position) return gameField[i][j];
+//            }
+//        }
+//        return null;
+        return allCellList.get(position);
     }
 
     public static int getCellCounter() {
@@ -73,26 +74,25 @@ public class GameProcess {
         allCell.removeAll(animalCell);                        // оставляем в списке только те, где не может быть животного
         for (int emptyCellPosition : allCell) {
             allCellList.get(emptyCellPosition).setAnimal(null);
-            allCellList.get(emptyCellPosition).setEmpty(true);
+            allCellList.get(emptyCellPosition).setIsEmpty(true);
         }
         allOrcaList = new ArrayList<>();
         allPengiunList = new ArrayList<>();
         Integer[] animalArray = animalCell.toArray(new Integer[animalCell.size()]);
-        shuffleArray(animalArray);                                                  // перемешиваем массив
+        shuffleArray(animalArray);                            // перемешиваем массив
         for (int i = 0; i < animalArray.length; i++) {
             if (i % 5 == 0) {
                 Orca orca = new Orca(animalArray[i]);
                 allOrcaList.add(orca);
                 allCellList.get(animalArray[i]).setAnimal(orca);
-                allCellList.get(animalArray[i]).setEmpty(false);
+                allCellList.get(animalArray[i]).setIsEmpty(false);
             } else {
                 Penguin penguin = new Penguin(animalArray[i]);
                 allPengiunList.add(penguin);
                 allCellList.get(animalArray[i]).setAnimal(penguin);
-                allCellList.get(animalArray[i]).setEmpty(false);
+                allCellList.get(animalArray[i]).setIsEmpty(false);
             }
         }
-        System.out.println(1);
     }
 
     static void shuffleArray(Integer[] ar) {
@@ -108,12 +108,13 @@ public class GameProcess {
     public static void lifeCycle() {
         for (Cell cell : allCellList) {
             if (cell.getAnimal() == null) continue;
-            Coordinate coordinate = new Coordinate(cell.getRowCoordinats(), cell.getColumnCoordinats());
-            cell.getAnimal().setAnimalCoordinate(coordinate);
-
+            else {
+                Coordinate coordinate = new Coordinate(cell.getRowCoordinats(), cell.getColumnCoordinats());
+                cell.getAnimal().setAnimalCoordinate(coordinate);
+                cell.getAnimal().animalLifeStep();
+            }
         }
 
     }
-
 }
 

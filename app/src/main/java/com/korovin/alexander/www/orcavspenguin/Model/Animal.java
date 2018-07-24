@@ -1,10 +1,8 @@
 package com.korovin.alexander.www.orcavspenguin.Model;
 
-import com.korovin.alexander.www.orcavspenguin.GameActivity;
-
 import java.util.ArrayList;
 
-public abstract class Animal {
+public abstract class Animal implements IAnimalLifeStep {
     public static final int ORCA_MAX_LIFECYCLE = 3;
     public static final int PINGUIN_PROLIFERATION = 3;
     public static final int ORCA_PROLIFERATION = 8;
@@ -34,24 +32,21 @@ public abstract class Animal {
         this.position = position;
     }
 
-    public void proliferationAnimal() {
-// логика размножения
+    public void proliferationAnimal(ArrayList<Integer> emptyCell) {
+// получаем позиции клеток, куда мы можем размножиться
     }
 
     public ArrayList<Coordinate> getPositionToMove() { // определяем куда можно ходить
         ArrayList<Coordinate> positions = new ArrayList<>();
         int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
-        int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
+        int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
         for (int i = 0; i < dx.length; ++i) {
-            int newRow = getAnimalCoordinate().getRowCoordinate() + dx[i];
-            int newColumn = getAnimalCoordinate().getColumnCoordinate() + dy[i];
-
-            // check the range
+            int newRow = this.getAnimalCoordinate().getRowCoordinate() + dx[i];
+            int newColumn = this.getAnimalCoordinate().getColumnCoordinate() + dy[i];
             if (newRow >= 0 && newRow < GameProcess.row && newColumn >= 0 && newColumn < GameProcess.column) {
                 positions.add(new Coordinate(newRow, newColumn));
             }
         }
-
         return positions;
     }
 
@@ -60,6 +55,7 @@ public abstract class Animal {
     }
 
     public Coordinate getAnimalCoordinate() {
-        return animalCoordinate;
+        return this.animalCoordinate;
     }
+
 }
